@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft: Story Mode — Việt hóa (@naphelem.)</title>
+  <meta name="description" content="Bản Việt hóa cộng đồng miễn phí cho Minecraft: Story Mode trên Windows PC bởi @naphelem. Trọn bộ Tập 1–8, font pixel chuẩn Minecraft, giữ phím K bỏ qua tóm tắt và hiển thị Discord.">
+  <meta name="theme-color" content="#0b0f16">
+  <link rel="icon" type="image/png" href="./assets/ss1-logo.png">
+  <link rel="preload" href="./assets/fonts/Pixelcraft.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Fixed full-screen in-game background -->
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-bg-veil" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
+
+  <!-- Top Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Minecraft: Story Mode Việt hóa — Đầu trang">
+        <img src="./assets/ss1-logo.png" alt="Minecraft: Story Mode" class="brand-logo" width="120" height="36">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-meta">
+          <span class="brand-title pixel">VIỆT HÓA</span>
+          <span class="brand-author pixel">@naphelem.</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle pixel" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Mở menu điều hướng">
+        MENU
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
+        <a href="#tai-ve">Tải về</a>
+        <a href="#anh-game">Ảnh game</a>
+        <a href="#tinh-nang">Điểm nổi bật</a>
+        <a href="#cai-dat">Cách cài</a>
+        <a href="#bao-loi">Báo lỗi</a>
+        <a class="nav-repo" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi" target="_blank" rel="noopener noreferrer">
+          GitHub →
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-panel">
+          <div class="kicker pixel">VIỆT HÓA CỘNG ĐỒNG · MIỄN PHÍ · WINDOWS PC</div>
+          <h1 class="pixel hero-title">
+            Minecraft: Story Mode<br>
+            <span class="accent-text">Bản Việt hóa trọn bộ</span>
+          </h1>
+          <p class="hero-lead">
+            Chơi trọn bộ <strong>8 tập Season One</strong> bằng tiếng Việt với font chữ pixel chuẩn phong cách Minecraft,
+            do <strong>@naphelem.</strong> thực hiện. Chỉ cần tải 1 tệp cài duy nhất —
+            <strong>không sửa tệp gốc</strong> và <strong>không mất dữ liệu chơi cũ</strong>.
+          </p>
+
+          <!-- Compact Season Status -->
+          <div class="status-strip" aria-live="polite">
+            <div class="status-cell">
+              <div class="status-cell-head">
+                <span class="status-label pixel">SEASON 1 (-a)</span>
+                <span class="status-badge is-live pixel" id="hero-ss1-badge">ĐÃ RA MẮT</span>
+              </div>
+              <div class="status-cell-value">
+                <span class="pixel strong-val" id="hero-ss1-tag">v1.0.2-a</span>
+                <span class="status-sep">/</span>
+                <span id="hero-ss1-meta">11.22 MB · Đang kiểm tra...</span>
+              </div>
+            </div>
+
+            <div class="status-cell">
+              <div class="status-cell-head">
+                <span class="status-label pixel">SEASON 2 (-b)</span>
+                <span class="status-badge is-soon pixel" id="hero-ss2-badge">SẮP RA MẮT</span>
+              </div>
+              <div class="status-cell-value">
+                <span class="pixel strong-val" id="hero-ss2-tag">Chưa phát hành</span>
+                <span class="status-sep">/</span>
+                <span id="hero-ss2-meta">Cập nhật sau bản Season 1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Primary CTAs -->
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary pixel" data-open-release="a" id="hero-download-btn">
+              <span>Tải Season 1 mới nhất</span>
+              <span class="btn-tag" id="hero-btn-tag">v1.0.2-a</span>
+            </button>
+            <a class="btn btn-stone pixel" href="#anh-game">
+              Xem ảnh trong game
+            </a>
+          </div>
+
+          <p class="hero-hint">
+            Nhấn nút tải để xem ghi chú phiên bản từ GitHub cùng liên kết tải xuống bên dưới.
+            Gặp lỗi khi chơi? <a href="#bao-loi">Báo lỗi tại đây →</a>
+          </p>
+        </div>
+
+        <!-- Real In-Game Hero Showcase -->
+        <aside class="hero-showcase" aria-label="Ảnh chụp thực tế Menu chính trong game">
+          <figure class="media-plate hero-plate">
+            <button type="button" class="plate-trigger" data-lightbox-index="2" aria-label="Phóng to ảnh chụp Menu chính trong game">
+              <img
+                src="./assets/new/main.png"
+                alt="Ảnh chụp thực tế Menu chính Minecraft: Story Mode bằng tiếng Việt: Chơi, Các tập, Bản lưu, Lựa chọn của tôi, Cài đặt, Thoát trò chơi"
+                width="1378"
+                height="832"
+                fetchpriority="high"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Ảnh chụp thực tế trong game · Menu chính</strong>
+              <span>Giao diện tiếng Việt đầy đủ dấu, giữ nguyên nút đá và phong cách pixel quen thuộc của Minecraft.</span>
+            </figcaption>
+          </figure>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 01 / Downloads by Season -->
+    <section class="section" id="tai-ve">
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <div class="kicker pixel">01 / TẢI BẢN VIỆT HÓA</div>
+            <h2 class="pixel">Chọn mùa trò chơi để tải bản mới nhất</h2>
+          </div>
+          <div class="sync-box">
+            <span class="sync-note" id="github-sync-status">Đang đồng bộ từ GitHub...</span>
+            <button type="button" class="btn-inline pixel" id="refresh-releases-btn">Làm mới</button>
+          </div>
+        </div>
+
+        <p class="section-lead">
+          Phiên bản mang đuôi <strong><code>-a</code></strong> dành cho <strong>Season One</strong>, đuôi <strong><code>-b</code></strong> dành cho <strong>Season Two</strong>.
+          Nhấn nút tải để xem đầy đủ thông tin phiên bản rồi tải về ngay bên dưới.
+        </p>
+
+        <div class="season-grid">
+          <!-- Season 1 Card -->
+          <article class="season-card is-active" id="card-season-a">
+            <div class="season-media">
+              <img src="./assets/ss1-banner.webp" alt="Ảnh bìa Minecraft: Story Mode Season One" width="502" height="763" loading="lazy">
+              <span class="season-code pixel">TAG -a</span>
+            </div>
+            <div class="season-body">
+              <div class="season-top">
+                <img src="./assets/ss1-logo.png" alt="Logo Season One" class="season-logo" width="180" height="54" loading="lazy">
+                <span class="status-badge is-live pixel" id="card-a-badge">ĐÃ RA MẮT</span>
+              </div>
+
+              <h3 class="pixel" id="card-a-title">Season One — Việt hóa</h3>
+              <p class="season-summary">
+                Đầy đủ Tập 1–8 cho cả Jesse nam &amp; nữ, menu tiếng Việt hoàn chỉnh,
+                giữ phím <strong>K</strong> để bỏ qua tóm tắt đầu tập và hiện tiến độ chơi lên Discord.
+              </p>
+
+              <dl class="kv-list">
+                <div class="kv-row">
+                  <dt>Phiên bản</dt>
+                  <dd class="pixel" id="card-a-tag">v1.0.2-a</dd>
+                </div>
+                <div class="kv-row">
+                  <dt>Ngày đăng</dt>
+                  <dd id="card-a-date">26/11/2026</dd>
+                </div>
+                <div class="kv-row">
+                  <dt>Bộ cài Windows</dt>
+                  <dd id="card-a-asset">MCSM-Vietnamese-Setup.exe (11.22 MB)</dd>
+                </div>
+              </dl>
+
+              <div class="season-actions">
+                <button type="button" class="btn btn-primary pixel" data-open-release="a" id="card-a-btn">
+                  Xem chi tiết &amp; Tải về
+                </button>
+                <a class="btn btn-stone pixel" id="card-a-gh" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases/tag/v1.0.2-a" target="_blank" rel="noopener noreferrer">
+                  GitHub →
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Season 2 Card -->
+          <article class="season-card is-upcoming" id="card-season-b">
+            <div class="season-media">
+              <img src="./assets/ss2-banner.webp" alt="Ảnh bìa Minecraft: Story Mode Season Two" width="720" height="1279" loading="lazy">
+              <span class="season-code is-s2 pixel">TAG -b</span>
+            </div>
+            <div class="season-body">
+              <div class="season-top">
+                <img src="./assets/ss2-logo.png" alt="Logo Season Two" class="season-logo is-s2" width="180" height="57" loading="lazy">
+                <span class="status-badge is-soon pixel" id="card-b-badge">SẮP RA MẮT</span>
+              </div>
+
+              <h3 class="pixel" id="card-b-title">Season Two — Việt hóa</h3>
+              <p class="season-summary" id="card-b-summary">
+                Hiện mình mới đăng bản <strong>Season One</strong> trước để mọi người chơi thử và góp ý.
+                Bản <strong>Season Two</strong> sẽ tự mở nút tải ngay tại đây khi được phát hành trên GitHub.
+              </p>
+
+              <dl class="kv-list">
+                <div class="kv-row">
+                  <dt>Phiên bản</dt>
+                  <dd class="pixel" id="card-b-tag">Chưa phát hành</dd>
+                </div>
+                <div class="kv-row">
+                  <dt>Trạng thái</dt>
+                  <dd id="card-b-date">Sẽ cập nhật sau Season 1</dd>
+                </div>
+                <div class="kv-row">
+                  <dt>Bộ cài Windows</dt>
+                  <dd id="card-b-asset">Đang chờ bản phát hành đuôi -b</dd>
+                </div>
+              </dl>
+
+              <div class="season-actions">
+                <button type="button" class="btn btn-disabled pixel" data-open-release="b" id="card-b-btn" disabled>
+                  Season 2 sắp ra mắt
+                </button>
+                <a class="btn btn-stone pixel" id="card-b-gh" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases" target="_blank" rel="noopener noreferrer">
+                  Theo dõi →
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / Real In-Game Screenshots + Skip Button Showcase -->
+    <section class="section" id="anh-game">
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <div class="kicker pixel">02 / ẢNH CHỤP TRONG GAME &amp; NÚT BỎ QUA</div>
+            <h2 class="pixel">Xem trước giao diện thực tế khi chơi</h2>
+          </div>
+          <span class="pill-note pixel">Nhấn vào ảnh để xem rõ</span>
+        </div>
+
+        <p class="section-lead">
+          Toàn bộ ảnh chụp trực tiếp từ trò chơi sau khi cài bản Việt hóa — kèm góc cận cảnh nút
+          <strong>giữ phím K để bỏ qua tóm tắt đầu tập</strong> nằm gọn ở góc trên-phải, không đè phụ đề.
+        </p>
+
+        <!-- Top Spotlight: Real Skip Recap in-game + 8-state render -->
+        <div class="spotlight-grid">
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-wide" data-lightbox-index="0" aria-label="Phóng to ảnh chụp thực tế nút bỏ qua tóm tắt trong game">
+              <img
+                src="./assets/new/skip_recap.png"
+                alt="Ảnh chụp thực tế trong game cảnh Wither Storm với nút [K | Giữ để bỏ qua] nằm gọn ở góc trên-phải"
+                width="1407"
+                height="687"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Bỏ qua tóm tắt thực tế trong game</strong>
+              <span>Huy hiệu <strong>[K | Giữ để bỏ qua]</strong> nằm gọn ở góc trên-phải trong các đoạn recap đầu tập, không che mất phụ đề phía dưới.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-contain" data-lightbox-index="1" aria-label="Phóng to bảng 8 trạng thái render của nút bỏ qua">
+              <img
+                src="./assets/recap-skip-macro.png"
+                alt="Cận cảnh 8 trạng thái nút [K | Giữ để bỏ qua]: trạng thái chờ, thanh viền xanh chạy quanh phím K khi giữ, lóe sáng Đang bỏ qua và tự hạ sáng sau 6 giây"
+                width="1618"
+                height="1506"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Render 8 trạng thái của nút Skip</strong>
+              <span>Viền xanh chạy quanh phím <strong>K</strong> theo tiến độ giữ phím, chuyển sang <em>“Đang bỏ qua...”</em> khi đầy và tự mờ dịu sau 6 giây nếu không bấm.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- 2x2 Real Screenshots + Installer -->
+        <div class="gallery-grid">
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-card" data-lightbox-index="2" aria-label="Phóng to ảnh Menu chính trong game">
+              <img
+                src="./assets/new/main.png"
+                alt="Ảnh chụp Menu chính trong game đã Việt hóa"
+                width="1378"
+                height="832"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Menu chính trong game</strong>
+              <span>Giữ trọn chất Minecraft với bộ font pixel có dấu rõ ràng trên từng nút bấm.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-card is-contain-dark" data-lightbox-index="3" aria-label="Phóng to ảnh Cài đặt lối chơi">
+              <img
+                src="./assets/new/loichoi.png"
+                alt="Ảnh chụp mục Cài đặt lối chơi trong game với hai công tắc Bỏ qua tóm tắt và Discord Presence"
+                width="491"
+                height="358"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Bật / tắt tiện ích ngay trong game</strong>
+              <span>Vào <strong>Cài đặt → Lối chơi</strong> để bật hoặc tắt nhanh <em>Bỏ qua tóm tắt</em> và <em>Discord Presence</em> bất kỳ lúc nào.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-card" data-lightbox-index="4" aria-label="Phóng to ảnh hướng dẫn thao tác phím">
+              <img
+                src="./assets/new/guide.png"
+                alt="Ảnh chụp màn hình hướng dẫn điều khiển phím và chuột bằng tiếng Việt trong game"
+                width="1221"
+                height="851"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Hướng dẫn thao tác phím &amp; chuột</strong>
+              <span>Cả màn hình điều khiển, bảng chế tạo, bảng hiệu trong màn chơi và hộp thoại đều được Việt hóa đồng bộ.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-plate">
+            <button type="button" class="plate-trigger is-card is-contain-dark" data-lightbox-index="5" aria-label="Phóng to ảnh trình cài đặt">
+              <img
+                src="./assets/showcase-installer.png"
+                alt="Giao diện trình cài đặt MCSM-Vietnamese-Setup.exe"
+                width="866"
+                height="569"
+                loading="lazy"
+              >
+              <span class="plate-zoom pixel">XEM LỚN</span>
+            </button>
+            <figcaption class="plate-caption">
+              <strong class="pixel">Trình cài đặt gọn nhẹ, dễ dùng</strong>
+              <span>Chọn từng tập muốn cài, hỗ trợ cài bổ sung DirectX khi máy thiếu và gỡ sạch về tiếng Anh gốc chỉ với 1 ô tích.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / Plain-Language Highlights + 8 Episodes -->
+    <section class="section" id="tinh-nang">
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <div class="kicker pixel">03 / ĐIỂM NỔI BẬT</div>
+            <h2 class="pixel">Đầy đủ cốt truyện, gọn nhẹ khi cài</h2>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-num pixel">01</div>
+            <h3 class="pixel">Trọn bộ 8 tập Season One</h3>
+            <p>
+              Dịch đầy đủ từ Tập 1 đến Tập 8, hỗ trợ cả nhân vật <strong>Jesse nam &amp; Jesse nữ</strong>,
+              các nhánh lựa chọn thoại, bảng hiệu trong cảnh và danh đề đầu/cuối tập.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-num pixel">02</div>
+            <h3 class="pixel">Font pixel đúng chất Minecraft</h3>
+            <p>
+              Giữ đúng phong cách chữ vuông đặc trưng của trò chơi với đầy đủ dấu tiếng Việt,
+              dễ đọc cả trên màn hình độ phân giải thấp lẫn cao.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-num pixel">03</div>
+            <h3 class="pixel">Bỏ qua Recap &amp; Discord</h3>
+            <p>
+              Giữ phím <strong>K</strong> để lướt qua đoạn tóm tắt đầu tập (Tập 2, 3, 4, 6, 7, 8)
+              và tự động hiển thị tập đang chơi kèm tiến độ lên trạng thái Discord của bạn.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-num pixel">04</div>
+            <h3 class="pixel">An toàn cho game &amp; bản lưu</h3>
+            <p>
+              Không chỉnh sửa tệp gốc của game và không đụng vào file save cũ.
+              Bộ cài chạy trực tiếp không cần cài thêm phần mềm phụ, kèm hỗ trợ DirectX cho máy mới.
+            </p>
+          </article>
+        </div>
+
+        <!-- Compact 8-Episode Tile Grid -->
+        <div class="episodes-panel">
+          <div class="episodes-head">
+            <h3 class="pixel">Danh sách 8 tập đã Việt hóa</h3>
+            <span class="episodes-sub">Hỗ trợ bản PC hợp pháp (Steam / GOG / bản cài rời)</span>
+          </div>
+          <ol class="episode-grid">
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 1</span>
+              <strong class="ep-vi pixel">Hội Đá</strong>
+              <span class="ep-en">The Order of the Stone</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 2</span>
+              <strong class="ep-vi pixel">Đến lúc tập hợp</strong>
+              <span class="ep-en">Assembly Required</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 3</span>
+              <strong class="ep-vi pixel">Nơi chẳng ai ngờ</strong>
+              <span class="ep-en">The Last Place You Look</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 4</span>
+              <strong class="ep-vi pixel">Một khối, một thế bí</strong>
+              <span class="ep-en">A Block and a Hard Place</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 5</span>
+              <strong class="ep-vi pixel">Hội Đá ra tay!</strong>
+              <span class="ep-en">Order Up!</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 6</span>
+              <strong class="ep-vi pixel">Cánh cổng bí ẩn</strong>
+              <span class="ep-en">A Portal to Mystery</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 7</span>
+              <strong class="ep-vi pixel">Truy cập bị từ chối</strong>
+              <span class="ep-en">Access Denied</span>
+            </li>
+            <li class="episode-tile">
+              <span class="ep-num pixel">TẬP 8</span>
+              <strong class="ep-vi pixel">Hành trình kết thúc?</strong>
+              <span class="ep-en">A Journey's End?</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / Simple 3-Step Install Guide -->
+    <section class="section" id="cai-dat">
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <div class="kicker pixel">04 / CÁCH CÀI ĐẶT</div>
+            <h2 class="pixel">Cài nhanh trong 3 bước đơn giản</h2>
+          </div>
+        </div>
+
+        <ol class="simple-steps">
+          <li class="step-card">
+            <span class="step-num pixel">BƯỚC 1</span>
+            <h3 class="pixel">Tải bộ cài mới nhất</h3>
+            <p>
+              Thoát game nếu đang mở, sau đó nhấn nút tải ở mục <a href="#tai-ve">Tải về</a> để lấy tệp
+              <code>MCSM-Vietnamese-Setup.exe</code> từ bản phát hành mới nhất.
+            </p>
+          </li>
+          <li class="step-card">
+            <span class="step-num pixel">BƯỚC 2</span>
+            <h3 class="pixel">Chọn thư mục game &amp; Cài</h3>
+            <p>
+              Mở tệp vừa tải, chọn đúng thư mục cài <em>Minecraft: Story Mode</em> trên máy bạn,
+              giữ nguyên các mục đã tích sẵn rồi nhấn <strong>Tiếp → Cài đặt</strong>.
+            </p>
+          </li>
+          <li class="step-card">
+            <span class="step-num pixel">BƯỚC 3</span>
+            <h3 class="pixel">Vào game thưởng thức</h3>
+            <p>
+              Mở game và chơi ngay! Bạn có thể bật/tắt nút bỏ qua tóm tắt hoặc Discord trong
+              <strong>Cài đặt → Lối chơi</strong>. Muốn về tiếng Anh gốc thì mở lại bộ cài và chọn <strong>Gỡ bản Việt hóa</strong>.
+            </p>
+          </li>
+        </ol>
+
+        <div class="tip-banner">
+          <span class="tip-tag pixel">LƯU Ý NHỎ</span>
+          <p>
+            Nếu Windows hiện cảnh báo <em>Windows protected your PC</em> khi mở tệp cài (do đây là bản Việt hóa cộng đồng miễn phí chưa mua chứng thư ký số thương mại),
+            bạn chỉ cần nhấn <strong>More info → Run anyway</strong> để tiếp tục cài đặt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / Bug Report Callout -->
+    <section class="section" id="bao-loi">
+      <div class="container">
+        <div class="issue-callout">
+          <div class="issue-content">
+            <div class="kicker kicker-gold pixel">05 / BÁO LỖI &amp; GÓP Ý</div>
+            <h2 class="pixel">Gặp lỗi khi chơi hoặc cài đặt? Cứ báo lên GitHub nha!</h2>
+            <p>
+              Nếu trong lúc trải nghiệm bạn thấy câu dịch chưa tự nhiên, sai xưng hô, lỗi chữ, lỗi nút bỏ qua tóm tắt,
+              Discord không hiện hoặc gặp trục trặc khi cài đặt — hãy tạo một <strong>Issue trên GitHub</strong>
+              để mình kiểm tra và sửa trong các bản cập nhật tiếp theo.
+            </p>
+            <p class="issue-tip">
+              Mẹo: đính kèm <strong>ảnh chụp màn hình</strong> chỗ bị lỗi và cho mình biết bạn đang ở <strong>Tập mấy</strong> để sửa nhanh nhất :D
+            </p>
+          </div>
+          <div class="issue-actions">
+            <a class="btn btn-gold pixel" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/issues/new" target="_blank" rel="noopener noreferrer">
+              Báo lỗi trên GitHub →
+            </a>
+            <a class="btn btn-stone pixel" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/issues" target="_blank" rel="noopener noreferrer">
+              Xem các lỗi đã báo
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-legal">
+        <p>
+          <strong>Minecraft: Story Mode</strong> cùng hình ảnh, nhân vật và âm thanh gốc thuộc bản quyền của
+          <strong>Mojang / Microsoft / Telltale Games</strong>.
+        </p>
+        <p class="footer-sub">
+          Dự án Việt hóa cộng đồng miễn phí, phi thương mại bởi <strong>@naphelem.</strong> — không chia sẻ tệp game gốc hay crack.
+          Font hiển thị web dùng <strong>Pixelcraft</strong> (cộng đồng mã nguồn mở lấy cảm hứng từ Minecraft).
+        </p>
+      </div>
+      <div class="footer-links pixel">
+        <a href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+        <a href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/issues" target="_blank" rel="noopener noreferrer">Báo lỗi</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Release Details & Download Modal -->
+  <div class="modal-backdrop" id="release-modal" hidden aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker-row">
+            <span class="modal-tag-pill pixel" id="modal-tag">v1.0.2-a</span>
+            <span class="modal-source-pill pixel" id="modal-source">GitHub Releases</span>
+          </div>
+          <h2 class="pixel" id="modal-title">Thông tin bản phát hành</h2>
+        </div>
+        <button type="button" class="modal-close pixel" id="modal-close" aria-label="Đóng cửa sổ thông tin bản phát hành">
+          ĐÓNG [ESC]
+        </button>
+      </div>
+
+      <div class="modal-body" id="modal-body">
+        <!-- Release Tag Summary -->
+        <dl class="modal-meta-grid" id="modal-meta">
+          <div class="modal-meta-cell">
+            <dt class="pixel">Tag phiên bản</dt>
+            <dd class="pixel" id="meta-tag">—</dd>
+          </div>
+          <div class="modal-meta-cell">
+            <dt class="pixel">Ngày đăng</dt>
+            <dd id="meta-date">—</dd>
+          </div>
+          <div class="modal-meta-cell">
+            <dt class="pixel">Tệp cài đặt</dt>
+            <dd id="meta-asset">—</dd>
+          </div>
+          <div class="modal-meta-cell">
+            <dt class="pixel">Dung lượng / Tải</dt>
+            <dd id="meta-size-dl">—</dd>
+          </div>
+        </dl>
+
+        <!-- SHA-256 Strip (clean compact check for users who want to verify) -->
+        <div class="modal-sha-box" id="modal-sha-box" hidden>
+          <div class="modal-label pixel">MÃ KIỂM TRA SHA-256</div>
+          <div class="code-row">
+            <code id="modal-sha-value">—</code>
+            <button type="button" class="btn-copy pixel" data-copy-target="modal-sha-value">Sao chép</button>
+          </div>
+        </div>
+
+        <!-- Release Notes rendered safely from GitHub tag -->
+        <div class="modal-notes-wrap">
+          <div class="modal-notes-head">
+            <span class="modal-label pixel">THÔNG TIN TỪ GITHUB RELEASE</span>
+            <button type="button" class="btn-inline pixel" id="modal-refresh-btn">Tải lại</button>
+          </div>
+          <div class="modal-notes" id="modal-notes"></div>
+        </div>
+
+        <!-- Additional assets (if release has > 1 file) -->
+        <div class="modal-extra-assets" id="modal-extra-assets" hidden>
+          <div class="modal-label pixel">CÁC TỆP ĐÍNH KÈM KHÁC</div>
+          <ul class="asset-list" id="modal-asset-list"></ul>
+        </div>
+      </div>
+
+      <!-- Direct Download Link Underneath -->
+      <div class="modal-footer">
+        <div class="modal-footer-note">
+          Gặp lỗi khi cài hoặc chơi?
+          <a href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/issues/new" target="_blank" rel="noopener noreferrer">Báo lỗi trên GitHub →</a>
+        </div>
+        <div class="modal-footer-actions">
+          <a class="btn btn-stone pixel" id="modal-github-link" href="https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases" target="_blank" rel="noopener noreferrer">
+            Trang Release →
+          </a>
+          <a class="btn btn-primary pixel" id="modal-download-link" href="#" rel="noopener noreferrer">
+            Tải xuống bộ cài
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sharp Image Lightbox -->
+  <div class="lightbox-backdrop" id="lightbox" hidden aria-hidden="true">
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" tabindex="-1">
+      <div class="lightbox-bar">
+        <div class="lightbox-counter pixel" id="lightbox-counter">1 / 6</div>
+        <div class="lightbox-controls">
+          <button type="button" class="btn-inline pixel" id="lightbox-prev" aria-label="Ảnh trước">← Trước</button>
+          <button type="button" class="btn-inline pixel" id="lightbox-next" aria-label="Ảnh tiếp theo">Sau →</button>
+          <button type="button" class="modal-close pixel" id="lightbox-close" aria-label="Đóng xem ảnh">ĐÓNG [ESC]</button>
+        </div>
+      </div>
+      <div class="lightbox-stage">
+        <img id="lightbox-img" src="" alt="">
+      </div>
+      <div class="lightbox-caption">
+        <strong class="pixel" id="lightbox-title"></strong>
+        <p id="lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

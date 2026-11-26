@@ -104,14 +104,14 @@ Huy hiệu nằm gọn ở **góc trên-phải**, hoàn toàn không che phụ �
 ## Hướng dẫn cài đặt & gỡ bỏ
 
 1. **Thoát hoàn toàn game** nếu đang mở.
-2. Tải **`MCSM-Vietnamese-Setup.exe`** từ bản phát hành [`v1.0.2-a`](https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases/tag/v1.0.2-a) (hoặc bản `-a` mới nhất trong [Releases](https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases)).
+2. Tải **`MCSM-Vietnamese-Setup.exe`** từ bản phát hành [`v1.0.3-a`](https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases/tag/v1.0.3-a) (hoặc bản `-a` mới nhất trong [Releases](https://github.com/NhinQuanhLanCuoi9999/mcsm-vi/releases)).
 3. Mở bộ cài, chọn đúng thư mục cài đặt *Minecraft: Story Mode* trên máy bạn, giữ nguyên các mục đã tích sẵn rồi nhấn **Tiếp → Cài đặt**.
-4. Vào game và trải nghiệm! Bạn có thể bật/tắt **Bỏ qua tóm tắt** hoặc **Discord Presence** bất kỳ lúc nào trong **Cài đặt → Lối chơi**.
+4. Vào game, mở **Cài đặt → Âm thanh / Hình ảnh** rồi **bật Phụ đề** để hiển thị đầy đủ lời thoại tiếng Việt và có trải nghiệm tốt hơn. Bạn cũng có thể bật/tắt **Bỏ qua tóm tắt** hoặc **Discord Presence** bất kỳ lúc nào trong **Cài đặt → Lối chơi**.
 5. **Muốn quay về tiếng Anh gốc?** Mở lại `MCSM-Vietnamese-Setup.exe`, tích ô **Gỡ bản Việt hóa đã cài bằng trình này** ở Bước 1 và làm theo hướng dẫn.
 
 > [!NOTE]
 > **Lưu ý Windows SmartScreen:** Do đây là bản phát hành cộng đồng phi thương mại chưa mua chứng thư ký số thương mại, Windows có thể hiện cảnh báo *Windows protected your PC*. Bạn có thể đối chiếu mã **SHA-256** của tệp cài với thông tin trên trang Release trước khi nhấn **More info → Run anyway**:
-> - Bản `v1.0.2-a` (`MCSM-Vietnamese-Setup.exe`): `4a98c8bb1353f50fef72921a8a2b3b453f278b37a16d860e3ed7eb8331e16c43`
+> - Bản `v1.0.3-a` (`MCSM-Vietnamese-Setup.exe`): `cf41fd86b7fb5d66e89d1bf6f2abf110b0aa96d25035f2109123db4a33ce6c51`
 
 ---
 

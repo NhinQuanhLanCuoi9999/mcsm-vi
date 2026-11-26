@@ -43,54 +43,144 @@
     },
   ];
 
-  // Lightbox gallery matching data-lightbox-index="0..5"
+  // Cinema Screening Room & Lightbox shots (index 0..5)
   const GALLERY_ITEMS = [
     {
       src: "./assets/new/skip_recap.png",
-      title: "Nút bỏ qua tóm tắt thực tế trong game",
-      desc: "Ảnh chụp thực tế trong cảnh Wither Storm: nút [K | Giữ để bỏ qua] nằm gọn ở góc trên-phải, tách biệt hoàn toàn với vùng phụ đề phía dưới.",
+      tag: "CHỤP THỰC TẾ · RECAP",
+      title: "Bỏ qua tóm tắt thực tế trong game",
+      desc: "Huy hiệu [K | Giữ để bỏ qua] nằm gọn ở góc trên-phải trong các đoạn recap đầu tập, tách biệt hoàn toàn với vùng phụ đề tiếng Việt phía dưới.",
+      showSkipDemo: true,
     },
     {
       src: "./assets/recap-skip-macro.png",
-      title: "Cận cảnh 8 trạng thái của nút Skip (giữ phím K)",
+      tag: "RENDER CẬN CẢNH · 8 TRẠNG THÁI",
+      title: "Cận cảnh 8 trạng thái nút Skip (giữ phím K)",
       desc: "Viền xanh chạy dọc 4 cạnh quanh ô phím K theo tiến độ giữ phím, lóe sáng “Đang bỏ qua...” khi đủ và tự hạ sáng sau 6 giây chờ.",
+      showSkipDemo: true,
     },
     {
       src: "./assets/new/main.png",
+      tag: "CHỤP THỰC TẾ · MENU CHÍNH",
       title: "Menu chính trong game",
       desc: "Ảnh chụp thực tế màn hình Menu chính với bộ chữ pixel tiếng Việt đầy đủ dấu, giữ đúng phong cách Minecraft.",
+      showSkipDemo: false,
     },
     {
       src: "./assets/new/loichoi.png",
-      title: "Cài đặt lối chơi — Bỏ qua tóm tắt & Discord Presence",
-      desc: "Bật hoặc tắt nhanh hai tiện ích ngay trong menu Cài đặt → Lối chơi của game bất kỳ lúc nào.",
+      tag: "CHỤP THỰC TẾ · TIỆN ÍCH",
+      title: "Bật / tắt tiện ích trong Cài đặt lối chơi",
+      desc: "Bật hoặc tắt nhanh Bỏ qua tóm tắt và Discord Presence ngay trong menu Cài đặt → Lối chơi của game bất kỳ lúc nào.",
+      showSkipDemo: false,
     },
     {
       src: "./assets/new/guide.png",
+      tag: "CHỤP THỰC TẾ · ĐIỀU KHIỂN",
       title: "Hướng dẫn thao tác phím & chuột trong game",
       desc: "Màn hình điều khiển chi tiết các phím di chuyển, chạy, tương tác và chuột được dịch đầy đủ, rõ ràng.",
+      showSkipDemo: false,
     },
     {
       src: "./assets/showcase-installer.png",
+      tag: "TRÌNH CÀI ĐẶT · WINDOWS",
       title: "Trình cài đặt MCSM-Vietnamese-Setup.exe",
-      desc: "Giao diện cài đặt từng bước, hỗ trợ chọn tập muốn cài, bổ sung DirectX khi cần và gỡ sạch về tiếng Anh gốc chỉ với 1 ô tích.",
+      desc: "Chọn từng tập muốn cài, hỗ trợ bổ sung DirectX khi cần và gỡ sạch về tiếng Anh gốc chỉ với 1 ô tích.",
+      showSkipDemo: false,
     },
   ];
 
-  const state = {
-    source: "loading", // "loading" | "live" | "cache" | "fallback"
-    releases: {
-      a: null,
-      b: null,
+  // Spoiler-free episode showcase metadata for the Telltale 8-episode selector
+  const EPISODES = {
+    1: {
+      num: "TẬP 1 / 8",
+      vi: "Hội Đá",
+      en: "The Order of the Stone",
+      blurb: "Khởi đầu hành trình của Jesse và nhóm bạn tại EnderCon khi một thế lực cổ xưa bất ngờ thức tỉnh.",
+      skip: "Mở màn mùa 1 · Không có recap đầu tập",
     },
+    2: {
+      num: "TẬP 2 / 8",
+      vi: "Đến lúc tập hợp",
+      en: "Assembly Required",
+      blurb: "Chia ngã rẽ đi tìm những huyền thoại còn lại của Hội Đá giữa Redstonia và Boom Town.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+    3: {
+      num: "TẬP 3 / 8",
+      vi: "Nơi chẳng ai ngờ",
+      en: "The Last Place You Look",
+      blurb: "Cuộc chạy đua xuyên qua The End để tìm kiếm kiến trúc sư Soren cùng bí mật của Hội Đá.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+    4: {
+      num: "TẬP 4 / 8",
+      vi: "Một khối, một thế bí",
+      en: "A Block and a Hard Place",
+      blurb: "Đoạn kết cao trào của chương Wither Storm khi sự thật về Hội Đá được phơi bày ở Far Lands.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+    5: {
+      num: "TẬP 5 / 8",
+      vi: "Hội Đá ra tay!",
+      en: "Order Up!",
+      blurb: "Mở ra hành trình mới dẫn tới Thành phố Mây lơ lửng trên bầu trời và cuộc truy tìm Nguồn Vĩnh Hằng.",
+      skip: "Mở tuyến phiêu lưu mới · Không có recap đầu tập",
+    },
+    6: {
+      num: "TẬP 6 / 8",
+      vi: "Cánh cổng bí ẩn",
+      en: "A Portal to Mystery",
+      blurb: "Lạc vào tòa dinh thự u ám qua hành lang cổng dịch chuyển, nơi bí ẩn kẻ mang mặt nạ Bí Ngô Trắng chờ lời giải.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+    7: {
+      num: "TẬP 7 / 8",
+      vi: "Truy cập bị từ chối",
+      en: "Access Denied",
+      blurb: "Bước vào thế giới bị kiểm soát bởi trí tuệ nhân tạo PAMA và giải cứu cư dân bằng công nghệ kính VR của Harper.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+    8: {
+      num: "TẬP 8 / 8",
+      vi: "Hành trình kết thúc?",
+      en: "A Journey's End?",
+      blurb: "Thử thách sinh tử tại đấu trường của các Old Builders để giành lấy Bản Đồ Thế Giới và tìm đường trở về nhà.",
+      skip: "Hỗ trợ giữ phím K bỏ qua tóm tắt đầu tập",
+    },
+  };
+
+  // Cinema Camera Keyframes per normalized scroll progress [0..1]
+  // Gives subtle, physical dolly push-in + gentle pan across bg.png without ever breaking readability
+  const CAMERA_SHOTS = [
+    { at: 0.0, scale: 1.03, panX: 0, panY: 0, veil: 0.34 },
+    { at: 0.22, scale: 1.06, panX: -14, panY: -8, veil: 0.58 },
+    { at: 0.48, scale: 1.09, panX: 12, panY: -12, veil: 0.62 },
+    { at: 0.72, scale: 1.07, panX: -10, panY: 6, veil: 0.60 },
+    { at: 1.0, scale: 1.045, panX: 6, panY: 10, veil: 0.56 },
+  ];
+
+  const state = {
+    source: "loading",
+    releases: { a: null, b: null },
     activeModalSeason: null,
     lastFocusedEl: null,
+    stageIndex: 0,
     lightboxIndex: 0,
+    screeningInView: false,
+    reducedMotion: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   };
 
   /* --------------------------------------------------------------------------
      Utilities
      -------------------------------------------------------------------------- */
+
+  function clamp(val, min, max) {
+    return Math.min(max, Math.max(min, val));
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
 
   function formatBytes(bytes) {
     if (typeof bytes !== "number" || !Number.isFinite(bytes) || bytes < 0) return "—";
@@ -133,8 +223,7 @@
 
   function tagMatchesSeason(tagName, seasonSuffix) {
     if (typeof tagName !== "string") return false;
-    const re = new RegExp(`(?:^|[-_.\\d])${seasonSuffix}$`, "i");
-    return re.test(tagName.trim());
+    return new RegExp(`(?:^|[-_.\\d])${seasonSuffix}$`, "i").test(tagName.trim());
   }
 
   function pickLatestForSeason(releases, seasonSuffix) {
@@ -142,10 +231,8 @@
       (rel) => rel && !rel.draft && tagMatchesSeason(rel.tag_name, seasonSuffix)
     );
     if (!matching.length) return null;
-
     const stable = matching.filter((rel) => !rel.prerelease);
     const pool = stable.length ? stable : matching;
-
     pool.sort((x, y) => {
       const tx = Date.parse(x.published_at || x.created_at || 0) || 0;
       const ty = Date.parse(y.published_at || y.created_at || 0) || 0;
@@ -183,6 +270,409 @@
   function setText(id, value) {
     const el = document.getElementById(id);
     if (el) el.textContent = value;
+  }
+
+  /* --------------------------------------------------------------------------
+     Living Cinema Camera Rig (Scroll Dolly + Smooth Steadicam Pointer Inertia)
+     -------------------------------------------------------------------------- */
+
+  function sampleCameraShot(progress) {
+    const p = clamp(progress, 0, 1);
+    for (let i = 0; i < CAMERA_SHOTS.length - 1; i += 1) {
+      const a = CAMERA_SHOTS[i];
+      const b = CAMERA_SHOTS[i + 1];
+      if (p >= a.at && p <= b.at) {
+        const span = Math.max(0.0001, b.at - a.at);
+        const t = (p - a.at) / span;
+        return {
+          scale: lerp(a.scale, b.scale, t),
+          panX: lerp(a.panX, b.panX, t),
+          panY: lerp(a.panY, b.panY, t),
+          veil: lerp(a.veil, b.veil, t),
+        };
+      }
+    }
+    return CAMERA_SHOTS[CAMERA_SHOTS.length - 1];
+  }
+
+  function initCinemaCamera() {
+    const rootStyle = document.documentElement.style;
+    const isFinePointer = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+
+    let targetScroll = 0;
+    let smoothScroll = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let smoothMouseX = 0;
+    let smoothMouseY = 0;
+    // Opening cinema pull-back settle (starts gently closer, settles to establishing shot)
+    let introScaleBoost = state.reducedMotion ? 0 : 0.055;
+    let rafId = null;
+
+    function readScrollProgress() {
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      return clamp(window.scrollY / maxScroll, 0, 1);
+    }
+
+    function tick() {
+      smoothScroll = lerp(smoothScroll, targetScroll, 0.085);
+      smoothMouseX = lerp(smoothMouseX, targetMouseX, 0.065);
+      smoothMouseY = lerp(smoothMouseY, targetMouseY, 0.065);
+      introScaleBoost = lerp(introScaleBoost, 0, 0.05);
+
+      const shot = sampleCameraShot(smoothScroll);
+      const finalX = shot.panX + smoothMouseX;
+      const finalY = shot.panY + smoothMouseY;
+      const finalScale = shot.scale + introScaleBoost;
+
+      rootStyle.setProperty("--cam-x", `${finalX.toFixed(2)}px`);
+      rootStyle.setProperty("--cam-y", `${finalY.toFixed(2)}px`);
+      rootStyle.setProperty("--cam-scale", finalScale.toFixed(4));
+      rootStyle.setProperty("--veil-alpha", shot.veil.toFixed(3));
+      rootStyle.setProperty("--scroll-progress", smoothScroll.toFixed(4));
+
+      const stillMoving =
+        Math.abs(targetScroll - smoothScroll) > 0.0004 ||
+        Math.abs(targetMouseX - smoothMouseX) > 0.06 ||
+        Math.abs(targetMouseY - smoothMouseY) > 0.06 ||
+        introScaleBoost > 0.0005;
+
+      if (stillMoving) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = null;
+      }
+    }
+
+    function scheduleTick() {
+      if (state.reducedMotion) {
+        const p = readScrollProgress();
+        const shot = sampleCameraShot(p);
+        rootStyle.setProperty("--veil-alpha", shot.veil.toFixed(3));
+        rootStyle.setProperty("--scroll-progress", p.toFixed(4));
+        return;
+      }
+      if (!rafId) {
+        rafId = requestAnimationFrame(tick);
+      }
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        targetScroll = readScrollProgress();
+        scheduleTick();
+      },
+      { passive: true }
+    );
+
+    if (isFinePointer && !state.reducedMotion) {
+      window.addEventListener(
+        "pointermove",
+        (ev) => {
+          const nx = ev.clientX / Math.max(1, window.innerWidth) - 0.5;
+          const ny = ev.clientY / Math.max(1, window.innerHeight) - 0.5;
+          // Restrained physical steadicam sway (±12px horizontal, ±8px vertical)
+          targetMouseX = -nx * 24;
+          targetMouseY = -ny * 16;
+          scheduleTick();
+        },
+        { passive: true }
+      );
+    }
+
+    targetScroll = readScrollProgress();
+    scheduleTick();
+  }
+
+  /* --------------------------------------------------------------------------
+     Scroll Scene Tracker + Shutter Reveal Observer
+     -------------------------------------------------------------------------- */
+
+  function initObservers() {
+    const revealEls = document.querySelectorAll("[data-reveal]");
+    if (state.reducedMotion || !("IntersectionObserver" in window)) {
+      revealEls.forEach((el) => el.classList.add("is-revealed"));
+    } else {
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-revealed");
+              revealObs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -36px 0px" }
+      );
+      revealEls.forEach((el) => revealObs.observe(el));
+    }
+
+    // Track active scene for bottom cinema HUD & top nav highlight
+    const scenes = Array.from(document.querySelectorAll("[data-scene]"));
+    const hudLabel = document.getElementById("hud-scene-label");
+    const hudDots = Array.from(document.querySelectorAll("[data-hud-scene]"));
+    const navLinks = Array.from(document.querySelectorAll("[data-nav-scene]"));
+
+    function setActiveScene(sceneId, labelText) {
+      if (hudLabel && labelText) hudLabel.textContent = labelText;
+      hudDots.forEach((dot) => {
+        dot.classList.toggle("is-active", dot.getAttribute("data-hud-scene") === sceneId);
+      });
+      navLinks.forEach((link) => {
+        link.classList.toggle("is-current", link.getAttribute("data-nav-scene") === sceneId);
+      });
+    }
+
+    if ("IntersectionObserver" in window && scenes.length) {
+      const sceneObs = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          if (visible.length) {
+            const target = visible[0].target;
+            setActiveScene(
+              target.getAttribute("data-scene"),
+              target.getAttribute("data-scene-label")
+            );
+          }
+        },
+        { threshold: [0.22, 0.45, 0.65], rootMargin: "-15% 0px -30% 0px" }
+      );
+      scenes.forEach((sec) => sceneObs.observe(sec));
+
+      // Also track when the Screening Room is in view so holding keyboard K works naturally
+      const screeningEl = document.getElementById("anh-game");
+      if (screeningEl) {
+        const srObs = new IntersectionObserver(
+          (entries) => {
+            state.screeningInView = Boolean(entries[0] && entries[0].isIntersecting);
+          },
+          { threshold: 0.18 }
+        );
+        srObs.observe(screeningEl);
+      }
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     Cinema Screening Room + Playable [K | Giữ để bỏ qua] Interactive Engine
+     -------------------------------------------------------------------------- */
+
+  let shutterTimer = null;
+
+  function selectStageShot(index, { withShutter = true } = {}) {
+    const total = GALLERY_ITEMS.length;
+    const safeIdx = ((index % total) + total) % total;
+    state.stageIndex = safeIdx;
+    const item = GALLERY_ITEMS[safeIdx];
+
+    const viewport = document.getElementById("screening-viewport");
+    const shutter = document.getElementById("stage-shutter");
+    const imgEl = document.getElementById("stage-img");
+    const skipDock = document.getElementById("skip-demo-dock");
+
+    function applySwap() {
+      if (imgEl) {
+        imgEl.src = item.src;
+        imgEl.alt = item.title;
+      }
+      setText("stage-counter", `CẢNH 0${safeIdx + 1} / 0${total}`);
+      setText("stage-tag", item.tag);
+      setText("stage-title", item.title);
+      setText("stage-desc", item.desc);
+
+      if (skipDock) {
+        skipDock.hidden = !item.showSkipDemo;
+      }
+
+      document.querySelectorAll("[data-stage-index]").forEach((btn) => {
+        const idx = Number.parseInt(btn.getAttribute("data-stage-index") || "0", 10);
+        const active = idx === safeIdx;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-selected", String(active));
+      });
+    }
+
+    if (!withShutter || state.reducedMotion || !shutter || !viewport) {
+      applySwap();
+      return;
+    }
+
+    window.clearTimeout(shutterTimer);
+    viewport.classList.add("is-cutting");
+    shutter.classList.remove("is-wiping");
+    void shutter.offsetWidth; // trigger crisp cinema wipe
+    shutter.classList.add("is-wiping");
+
+    shutterTimer = window.setTimeout(() => {
+      applySwap();
+      viewport.classList.remove("is-cutting");
+    }, 150);
+  }
+
+  function initHoldKDemo() {
+    const hud = document.getElementById("skip-demo-hud");
+    const edgeTop = document.getElementById("skip-edge-top");
+    const edgeRight = document.getElementById("skip-edge-right");
+    const edgeBottom = document.getElementById("skip-edge-bottom");
+    const edgeLeft = document.getElementById("skip-edge-left");
+    const label = document.getElementById("skip-demo-text");
+    if (!hud || !edgeTop || !edgeRight || !edgeBottom || !edgeLeft || !label) return;
+
+    const HOLD_DURATION_MS = 950;
+    const DRAIN_RATE = 2.6;
+
+    let holdingPointer = false;
+    let holdingKey = false;
+    let progress = 0;
+    let completed = false;
+    let lastTs = 0;
+    let rafId = null;
+
+    function paintProgress(p) {
+      const top = clamp(p / 0.25, 0, 1);
+      const right = clamp((p - 0.25) / 0.25, 0, 1);
+      const bottom = clamp((p - 0.5) / 0.25, 0, 1);
+      const left = clamp((p - 0.75) / 0.25, 0, 1);
+
+      edgeTop.style.transform = `scaleX(${top.toFixed(4)})`;
+      edgeRight.style.transform = `scaleY(${right.toFixed(4)})`;
+      edgeBottom.style.transform = `scaleX(${bottom.toFixed(4)})`;
+      edgeLeft.style.transform = `scaleY(${left.toFixed(4)})`;
+    }
+
+    function step(ts) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min(64, ts - lastTs);
+      lastTs = ts;
+
+      const isHolding = holdingPointer || holdingKey;
+      hud.classList.toggle("is-holding", isHolding && !completed);
+
+      if (!completed) {
+        if (isHolding) {
+          progress = clamp(progress + dt / HOLD_DURATION_MS, 0, 1);
+          if (progress >= 1) {
+            completed = true;
+            paintProgress(1);
+            hud.classList.remove("is-holding");
+            hud.classList.add("is-complete");
+            label.textContent = "Đang bỏ qua...";
+
+            // Diamond Flash -> Cinema shutter cut straight to Main Menu (shot index 2)!
+            window.setTimeout(() => {
+              selectStageShot(2, { withShutter: true });
+              window.setTimeout(() => {
+                completed = false;
+                progress = 0;
+                paintProgress(0);
+                hud.classList.remove("is-complete");
+                label.textContent = "Thử giữ để bỏ qua";
+              }, 260);
+            }, 380);
+            rafId = null;
+            return;
+          }
+        } else {
+          progress = clamp(progress - (dt / HOLD_DURATION_MS) * DRAIN_RATE, 0, 1);
+        }
+        paintProgress(progress);
+      }
+
+      if (isHolding || progress > 0) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        lastTs = 0;
+        rafId = null;
+      }
+    }
+
+    function ensureRunning() {
+      if (!rafId) {
+        lastTs = 0;
+        rafId = requestAnimationFrame(step);
+      }
+    }
+
+    // Pointer hold directly on the HUD button
+    hud.addEventListener("pointerdown", (ev) => {
+      ev.preventDefault();
+      if (completed) return;
+      holdingPointer = true;
+      if (hud.setPointerCapture) {
+        try {
+          hud.setPointerCapture(ev.pointerId);
+        } catch {
+          // Ignore if unsupported
+        }
+      }
+      ensureRunning();
+    });
+
+    const releasePointer = () => {
+      holdingPointer = false;
+      ensureRunning();
+    };
+    hud.addEventListener("pointerup", releasePointer);
+    hud.addEventListener("pointercancel", releasePointer);
+    hud.addEventListener("lostpointercapture", releasePointer);
+
+    function isScreeningVisibleNow() {
+      const screeningEl = document.getElementById("anh-game");
+      if (!screeningEl) return false;
+      const rect = screeningEl.getBoundingClientRect();
+      return rect.bottom > 80 && rect.top < window.innerHeight - 60;
+    }
+
+    // Keyboard K hold when the Screening Room is on screen & showing Recap shot
+    document.addEventListener("keydown", (ev) => {
+      if (ev.repeat) return;
+      if (ev.key !== "k" && ev.key !== "K") return;
+      if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      if (isAnyOverlayOpen()) return;
+      const tag = (document.activeElement && document.activeElement.tagName) || "";
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (!isScreeningVisibleNow()) return;
+      if (!GALLERY_ITEMS[state.stageIndex] || !GALLERY_ITEMS[state.stageIndex].showSkipDemo) return;
+      holdingKey = true;
+      ensureRunning();
+    });
+
+    document.addEventListener("keyup", (ev) => {
+      if (ev.key === "k" || ev.key === "K") {
+        holdingKey = false;
+        ensureRunning();
+      }
+    });
+
+    window.addEventListener("blur", () => {
+      holdingKey = false;
+      holdingPointer = false;
+      ensureRunning();
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     Interactive Telltale 8-Episode Board
+     -------------------------------------------------------------------------- */
+
+  function selectEpisode(epNumber) {
+    const ep = EPISODES[epNumber];
+    if (!ep) return;
+    setText("ep-spot-num", ep.num);
+    setText("ep-spot-title", ep.vi);
+    setText("ep-spot-en", ep.en);
+    setText("ep-spot-blurb", ep.blurb);
+    setText("ep-spot-skip", ep.skip);
+
+    document.querySelectorAll("#episode-grid .episode-tile").forEach((tile) => {
+      const active = Number(tile.getAttribute("data-ep")) === epNumber;
+      tile.classList.toggle("is-selected", active);
+      const btn = tile.querySelector("button");
+      if (btn) btn.setAttribute("aria-pressed", String(active));
+    });
   }
 
   /* --------------------------------------------------------------------------
@@ -380,7 +870,7 @@
   }
 
   /* --------------------------------------------------------------------------
-     GitHub Releases Fetching + Caching + Fallback
+     GitHub Releases Sync + Caching + Fallback
      -------------------------------------------------------------------------- */
 
   function readCachedReleases() {
@@ -400,7 +890,7 @@
     try {
       sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
     } catch {
-      // Ignore private-mode storage restrictions
+      // Ignore private-mode restrictions
     }
   }
 
@@ -443,10 +933,8 @@
     if (syncEl) {
       if (source === "loading") {
         syncEl.textContent = "Đang đồng bộ từ GitHub...";
-      } else if (source === "live") {
+      } else if (source === "live" || source === "cache") {
         syncEl.textContent = "Đã đồng bộ trực tiếp từ GitHub Releases.";
-      } else if (source === "cache") {
-        syncEl.textContent = "Đã đồng bộ từ GitHub Releases.";
       } else {
         const suffix = errorReason ? ` (${errorReason})` : "";
         syncEl.textContent = `Tạm dùng bản lưu dự phòng v1.0.2-a${suffix}.`;
@@ -459,13 +947,13 @@
   }
 
   function updateSeasonUi() {
-    // --- Season 1 (a) ---
     const relA = state.releases.a;
     if (relA) {
       const assetA = pickPrimaryAsset(relA);
       const sizeStr = assetA ? formatBytes(assetA.size) : "Xem trên GitHub";
       const dateShort = formatDateShortVi(relA.published_at);
 
+      setText("hero-sync-chip", `SEASON 1 · ${relA.tag_name}`);
       setText("hero-ss1-tag", relA.tag_name);
       setText("hero-ss1-meta", `${sizeStr} · ${dateShort}`);
       setText("hero-btn-tag", relA.tag_name);
@@ -475,14 +963,15 @@
       setText("card-a-date", formatDateVi(relA.published_at));
       setText("card-a-asset", assetA ? `${assetA.name} (${sizeStr})` : "Xem trên GitHub");
 
+      const badgeTextA = relA.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
       const badgeA = document.getElementById("card-a-badge");
       if (badgeA) {
-        badgeA.textContent = relA.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
+        badgeA.textContent = badgeTextA;
         badgeA.className = "status-badge is-live pixel";
       }
       const heroBadgeA = document.getElementById("hero-ss1-badge");
       if (heroBadgeA) {
-        heroBadgeA.textContent = relA.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
+        heroBadgeA.textContent = badgeTextA;
         heroBadgeA.className = "status-badge is-live pixel";
       }
       const ghA = document.getElementById("card-a-gh");
@@ -491,7 +980,6 @@
       }
     }
 
-    // --- Season 2 (b) ---
     const relB = state.releases.b;
     const cardB = document.getElementById("card-season-b");
     const btnB = document.getElementById("card-b-btn");
@@ -508,12 +996,13 @@
         cardB.classList.remove("is-upcoming");
         cardB.classList.add("is-active-s2");
       }
+      const badgeTextB = relB.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
       if (badgeB) {
-        badgeB.textContent = relB.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
+        badgeB.textContent = badgeTextB;
         badgeB.className = "status-badge is-live-s2 pixel";
       }
       if (heroBadgeB) {
-        heroBadgeB.textContent = relB.prerelease ? "THỬ NGHIỆM" : "ĐÃ RA MẮT";
+        heroBadgeB.textContent = badgeTextB;
         heroBadgeB.className = "status-badge is-live-s2 pixel";
       }
 
@@ -551,7 +1040,7 @@
         heroBadgeB.className = "status-badge is-soon pixel";
       }
       setText("hero-ss2-tag", "Chưa phát hành");
-      setText("hero-ss2-meta", "Cập nhật sau bản Season 1");
+      setText("hero-ss2-meta", "Cập nhật sau SS1");
       setText("card-b-tag", "Chưa phát hành");
       setText("card-b-date", "Sẽ cập nhật sau Season 1");
       setText("card-b-asset", "Đang chờ bản phát hành đuôi -b");
@@ -568,11 +1057,21 @@
   }
 
   /* --------------------------------------------------------------------------
-     Release Modal
+     Release Modal & Lightbox
      -------------------------------------------------------------------------- */
 
   const releaseModal = document.getElementById("release-modal");
   const releaseDialog = releaseModal ? releaseModal.querySelector(".modal-dialog") : null;
+  const lightbox = document.getElementById("lightbox");
+  const lightboxDialog = lightbox ? lightbox.querySelector(".lightbox-dialog") : null;
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  function isAnyOverlayOpen() {
+    return (
+      (releaseModal && !releaseModal.hidden) ||
+      (lightbox && !lightbox.hidden)
+    );
+  }
 
   function openReleaseModal(seasonSuffix, triggerEl) {
     const rel = state.releases[seasonSuffix];
@@ -580,7 +1079,6 @@
 
     state.activeModalSeason = seasonSuffix;
     state.lastFocusedEl = triggerEl || document.activeElement;
-
     renderReleaseModal(seasonSuffix);
 
     releaseModal.hidden = false;
@@ -696,14 +1194,6 @@
     }
   }
 
-  /* --------------------------------------------------------------------------
-     Lightbox
-     -------------------------------------------------------------------------- */
-
-  const lightbox = document.getElementById("lightbox");
-  const lightboxDialog = lightbox ? lightbox.querySelector(".lightbox-dialog") : null;
-  const lightboxImg = document.getElementById("lightbox-img");
-
   function openLightbox(index, triggerEl) {
     if (!lightbox || !GALLERY_ITEMS.length) return;
     state.lastFocusedEl = triggerEl || document.activeElement;
@@ -776,6 +1266,7 @@
      -------------------------------------------------------------------------- */
 
   function bindEvents() {
+    // Mobile nav toggle
     const navToggle = document.getElementById("nav-toggle");
     const siteNav = document.getElementById("site-nav");
     if (navToggle && siteNav) {
@@ -791,6 +1282,7 @@
       });
     }
 
+    // Release modal triggers
     document.querySelectorAll("[data-open-release]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const season = btn.getAttribute("data-open-release");
@@ -807,14 +1299,30 @@
     }
 
     const refreshBtn = document.getElementById("refresh-releases-btn");
-    if (refreshBtn) {
-      refreshBtn.addEventListener("click", () => fetchReleases({ forceRefresh: true }));
-    }
+    if (refreshBtn) refreshBtn.addEventListener("click", () => fetchReleases({ forceRefresh: true }));
     const modalRefreshBtn = document.getElementById("modal-refresh-btn");
-    if (modalRefreshBtn) {
-      modalRefreshBtn.addEventListener("click", () => fetchReleases({ forceRefresh: true }));
-    }
+    if (modalRefreshBtn) modalRefreshBtn.addEventListener("click", () => fetchReleases({ forceRefresh: true }));
 
+    // Screening Room controls
+    document.querySelectorAll("[data-stage-index]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number.parseInt(btn.getAttribute("data-stage-index") || "0", 10);
+        if (!Number.isNaN(idx) && idx !== state.stageIndex) {
+          selectStageShot(idx, { withShutter: true });
+        }
+      });
+    });
+
+    const stagePrev = document.getElementById("stage-prev");
+    const stageNext = document.getElementById("stage-next");
+    const stageZoom = document.getElementById("stage-zoom");
+    const stageImgBtn = document.getElementById("stage-img-btn");
+    if (stagePrev) stagePrev.addEventListener("click", () => selectStageShot(state.stageIndex - 1));
+    if (stageNext) stageNext.addEventListener("click", () => selectStageShot(state.stageIndex + 1));
+    if (stageZoom) stageZoom.addEventListener("click", () => openLightbox(state.stageIndex, stageZoom));
+    if (stageImgBtn) stageImgBtn.addEventListener("click", () => openLightbox(state.stageIndex, stageImgBtn));
+
+    // Hero direct lightbox trigger
     document.querySelectorAll("[data-lightbox-index]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const idx = Number.parseInt(btn.getAttribute("data-lightbox-index") || "0", 10);
@@ -822,6 +1330,7 @@
       });
     });
 
+    // Lightbox controls
     const lbPrev = document.getElementById("lightbox-prev");
     const lbNext = document.getElementById("lightbox-next");
     const lbClose = document.getElementById("lightbox-close");
@@ -834,6 +1343,15 @@
       });
     }
 
+    // Telltale 8-Episode selector
+    document.querySelectorAll("#episode-grid .episode-tile").forEach((tile) => {
+      const epNum = Number.parseInt(tile.getAttribute("data-ep") || "1", 10);
+      const btn = tile.querySelector("button");
+      if (!btn) return;
+      btn.addEventListener("click", () => selectEpisode(epNum));
+    });
+
+    // Clipboard copy
     document.querySelectorAll("[data-copy-target]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const targetId = btn.getAttribute("data-copy-target");
@@ -841,20 +1359,38 @@
       });
     });
 
+    // Global keyboard controls (Escape, Arrows for Lightbox & Screening Room)
     document.addEventListener("keydown", (ev) => {
       if (ev.key === "Escape") {
         if (lightbox && !lightbox.hidden) closeLightbox();
         else if (releaseModal && !releaseModal.hidden) closeReleaseModal();
-      } else if (lightbox && !lightbox.hidden) {
+        return;
+      }
+
+      if (lightbox && !lightbox.hidden) {
         if (ev.key === "ArrowLeft") showLightboxItem(state.lightboxIndex - 1);
         else if (ev.key === "ArrowRight") showLightboxItem(state.lightboxIndex + 1);
+        return;
+      }
+
+      if (!isAnyOverlayOpen() && state.screeningInView) {
+        const tag = (document.activeElement && document.activeElement.tagName) || "";
+        if (tag !== "INPUT" && tag !== "TEXTAREA") {
+          if (ev.key === "ArrowLeft") selectStageShot(state.stageIndex - 1);
+          else if (ev.key === "ArrowRight") selectStageShot(state.stageIndex + 1);
+        }
       }
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     applyReleaseList(FALLBACK_RELEASES, "loading");
+    selectStageShot(0, { withShutter: false });
+    selectEpisode(1);
     bindEvents();
+    initCinemaCamera();
+    initObservers();
+    initHoldKDemo();
     fetchReleases({ forceRefresh: false });
   });
 })();

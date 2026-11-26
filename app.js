@@ -4,41 +4,41 @@
   const REPO_OWNER = "NhinQuanhLanCuoi9999";
   const REPO_NAME = "mcsm-vi";
   const REPO_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
-  const API_RELEASES_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases?per_page=30`;
-  const CACHE_KEY = `mcsm_vi_releases_${REPO_OWNER}_${REPO_NAME}_v2`;
+  const API_RELEASES_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases?per_page=100`;
+  const CACHE_KEY = `mcsm_vi_releases_${REPO_OWNER}_${REPO_NAME}_v3`;
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
-  // Verified fallback snapshot of v1.0.2-a if GitHub API is rate-limited or offline
+  // Verified fallback snapshot of v1.0.3-a if GitHub API is rate-limited or offline
   const FALLBACK_RELEASES = [
     {
-      tag_name: "v1.0.2-a",
-      name: "Minecraft: Story Mode - Season 1 VIỆT HÓA",
+      tag_name: "v1.0.3-a",
+      name: "Minecraft: Story Mode - Season 1 VIỆT HÓA v1.0.3",
       draft: false,
       prerelease: false,
-      published_at: "2026-11-26T01:20:48Z",
-      html_url: `${REPO_URL}/releases/tag/v1.0.2-a`,
+      published_at: "2026-11-26T12:25:04Z",
+      html_url: `${REPO_URL}/releases/tag/v1.0.3-a`,
       assets: [
         {
           name: "MCSM-Vietnamese-Setup.exe",
-          size: 11765760,
+          size: 11766272,
           download_count: null,
-          browser_download_url: `${REPO_URL}/releases/download/v1.0.2-a/MCSM-Vietnamese-Setup.exe`,
+          browser_download_url: `${REPO_URL}/releases/download/v1.0.3-a/MCSM-Vietnamese-Setup.exe`,
         },
       ],
       body: [
-        "# Minecraft: Story Mode — Season One · Việt hóa `v1.0.2`",
+        "# Minecraft: Story Mode — Season One · Việt hóa `v1.0.3` (`v1.0.3-a`)",
         "",
-        "Bản phát hành công khai đầu tiên của dự án Việt hóa cộng đồng miễn phí **Minecraft: Story Mode — Season One (Windows PC)** bởi **`@naphelem.`**, bao gồm trọn bộ giao diện, font chữ pixel tiếng Việt và **đầy đủ Tập 1–8** trong một bộ cài duy nhất.",
+        "Bản cập nhật sửa toàn diện **101 dòng thoại & lựa chọn nhánh** sai xưng hô xuyên suốt Tập 2–8 (trọng tâm Gabriel, Petra, Magnus, Ellegaard, Soren, Ivor, Harper, Hadrian & Mevia), đồng bộ cả hai tuyến Jesse Nữ & Jesse Nam.",
         "",
-        "## Có gì mới",
-        "- **Trọn bộ Tập 1–8:** Hỗ trợ cả Jesse nam & nữ, lựa chọn thoại, bảng hiệu trong cảnh và danh đề đầu/cuối tập.",
+        "## Tính năng đầy đủ",
+        "- **Trọn bộ Tập 1–8:** Hỗ trợ cả Jesse nam & nữ, 7 font pixel tiếng Việt, bảng hiệu 3D và danh đề đầu/cuối tập.",
         "- **Bỏ qua tóm tắt đầu tập (giữ phím `K`):** Huy hiệu đặt ở góc trên-phải, không đè phụ đề phía dưới.",
-        "- **Discord Rich Presence:** Hiển thị trạng thái đang chơi Tập 1–8 cùng phần trăm tiến độ lên Discord.",
-        "- **Trình cài đặt 1 tệp duy nhất:** Tự hỗ trợ DirectX cho máy mới, không sửa tệp game gốc và không mất save.",
+        "- **Discord Rich Presence:** Hiển thị trạng thái đang chơi Tập 1–8 cùng phần trăm tiến độ theo thời gian thực.",
+        "- **Trình cài đặt 1 tệp duy nhất:** Tự hỗ trợ DirectX 9.0c / VC++ runtime, cài đè nâng cấp an toàn, không sửa tệp game gốc và không mất save.",
         "",
         "## Kiểm tra tệp",
         "- **Tệp tải về:** `MCSM-Vietnamese-Setup.exe` (`~11.22` MB)",
-        "- **SHA-256:** `4a98c8bb1353f50fef72921a8a2b3b453f278b37a16d860e3ed7eb8331e16c43`",
+        "- **SHA-256:** `cf41fd86b7fb5d66e89d1bf6f2abf110b0aa96d25035f2109123db4a33ce6c51`",
       ].join("\n"),
     },
   ];
@@ -162,6 +162,11 @@
   const state = {
     source: "loading",
     releases: { a: null, b: null },
+    downloadTotals: {
+      all: { total: 0, releaseCount: 0, known: false },
+      a: { total: 0, releaseCount: 0, known: false },
+      b: { total: 0, releaseCount: 0, known: false },
+    },
     activeModalSeason: null,
     lastFocusedEl: null,
     stageIndex: 0,
@@ -248,6 +253,36 @@
     const archive = release.assets.find((a) => /\.(zip|7z|msi)$/i.test(a.name || ""));
     if (archive) return archive;
     return release.assets[0];
+  }
+
+  function sumReleaseDownloads(releases, seasonSuffix = null) {
+    if (!Array.isArray(releases)) {
+      return { total: 0, releaseCount: 0, known: false };
+    }
+    let total = 0;
+    let releaseCount = 0;
+    let known = false;
+
+    for (const rel of releases) {
+      if (!rel || rel.draft) continue;
+      if (seasonSuffix && !tagMatchesSeason(rel.tag_name, seasonSuffix)) continue;
+      const assets = Array.isArray(rel.assets) ? rel.assets : [];
+      const installers = assets.filter((a) => /\.(exe|zip|7z|msi)$/i.test(a.name || ""));
+      const targets = installers.length ? installers : (pickPrimaryAsset(rel) ? [pickPrimaryAsset(rel)] : []);
+      if (!targets.length) continue;
+
+      let countedThisRelease = false;
+      for (const asset of targets) {
+        if (typeof asset.download_count === "number" && Number.isFinite(asset.download_count)) {
+          total += asset.download_count;
+          known = true;
+          countedThisRelease = true;
+        }
+      }
+      if (countedThisRelease) releaseCount += 1;
+    }
+
+    return { total, releaseCount, known };
   }
 
   function extractSha256(bodyText) {
@@ -926,8 +961,26 @@
     state.source = source;
     state.releases.a = pickLatestForSeason(list, "a");
     state.releases.b = pickLatestForSeason(list, "b");
+    state.downloadTotals.all = sumReleaseDownloads(list, null);
+    state.downloadTotals.a = sumReleaseDownloads(list, "a");
+    state.downloadTotals.b = sumReleaseDownloads(list, "b");
 
     updateSeasonUi();
+
+    const headerDlEl = document.getElementById("header-downloads");
+    const headerDlCountEl = document.getElementById("header-downloads-count");
+    if (headerDlEl && headerDlCountEl) {
+      const stats = state.downloadTotals.all;
+      if (source === "loading") {
+        headerDlCountEl.textContent = "...";
+      } else if (stats.known) {
+        headerDlCountEl.textContent = stats.total.toLocaleString("vi-VN");
+        headerDlEl.title = `Tổng ${stats.total.toLocaleString("vi-VN")} lượt tải bộ cài trên ${stats.releaseCount} phiên bản phát hành`;
+      } else {
+        headerDlCountEl.textContent = "—";
+        headerDlEl.title = "Chưa lấy được tổng lượt tải từ GitHub";
+      }
+    }
 
     const syncEl = document.getElementById("github-sync-status");
     if (syncEl) {
@@ -937,7 +990,7 @@
         syncEl.textContent = "Đã đồng bộ trực tiếp từ GitHub Releases.";
       } else {
         const suffix = errorReason ? ` (${errorReason})` : "";
-        syncEl.textContent = `Tạm dùng bản lưu dự phòng v1.0.2-a${suffix}.`;
+        syncEl.textContent = `Tạm dùng bản lưu dự phòng v1.0.3-a${suffix}.`;
       }
     }
 
@@ -1128,10 +1181,14 @@
 
     if (primaryAsset) {
       const sizeStr = formatBytes(primaryAsset.size);
-      const dlCount =
-        typeof primaryAsset.download_count === "number"
-          ? ` · ${primaryAsset.download_count.toLocaleString("vi-VN")} lượt tải`
-          : "";
+      const seasonStats = state.downloadTotals[seasonSuffix];
+      let dlCount = "";
+      if (typeof primaryAsset.download_count === "number") {
+        dlCount = ` · ${primaryAsset.download_count.toLocaleString("vi-VN")} lượt bản này`;
+        if (seasonStats && seasonStats.known && seasonStats.releaseCount > 1) {
+          dlCount += ` (${seasonStats.total.toLocaleString("vi-VN")} tổng)`;
+        }
+      }
       setText("meta-size-dl", `${sizeStr}${dlCount}`);
     } else {
       setText("meta-size-dl", "—");
